@@ -1,0 +1,19 @@
+input {
+  http {
+    port => 80
+  }
+}
+
+filter {
+  if [headers][request_method] != "POST" {
+    # Drop all non-POST requests. Healthchecks happen over HTTP GET,
+    # and we don't want those getting into Logstash.
+    drop { }
+  }
+
+  <%= ENV['LOGSTASH_FILTERS'] || "" %>
+}
+
+output {
+  <%= ENV['LOGSTASH_OUTPUT_CONFIG'] || "stdout { codec => rubydebug }" %>
+}
