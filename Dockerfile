@@ -30,4 +30,4 @@ ADD test /tmp/test
 RUN bats /tmp/test
 
 EXPOSE 80
-CMD ["/bin/bash", "/run-logstash.sh"]
+CMD ["/run-logstash.sh"]
