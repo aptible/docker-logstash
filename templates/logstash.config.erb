@@ -15,5 +15,5 @@ filter {
 }
 
 output {
-  <%= ENV['LOGSTASH_OUTPUT_CONFIG'] || "stdout { codec => rubydebug }" %>
+  <%= ENV['LOGSTASH_OUTPUT_CONFIG'] || "" %>
 }

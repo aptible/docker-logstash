@@ -28,7 +28,7 @@ wait_for_logstash () {
 }
 
 @test "It should listen over HTTP on port 80 for POSTs" {
-  wait_for_logstash
+  LOGSTASH_OUTPUT_CONFIG="stdout { codec => rubydebug }" wait_for_logstash
   run curl -XPOST http://localhost --data 'APTIBLE OK'
   run curl -XPUT http://localhost --data 'APTIBLE KO'
 
@@ -47,7 +47,7 @@ wait_for_logstash () {
 }
 
 @test "It should be configurable through LOGSTASH_FILTERS" {
-  LOGSTASH_FILTERS="if [message] == 'APTIBLE KO' { drop {} }" wait_for_logstash
+  LOGSTASH_OUTPUT_CONFIG="stdout { codec => rubydebug }" LOGSTASH_FILTERS="if [message] == 'APTIBLE KO' { drop {} }" wait_for_logstash
   run curl -XPOST http://localhost --data 'APTIBLE OK'
   run curl -XPOST http://localhost --data 'APTIBLE KO'
 

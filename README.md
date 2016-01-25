@@ -20,9 +20,16 @@ Use the following environment variables to configure logstash:
   + `LOGSTASH_FILTERS` will be included as-in Logstash's `filter { }` configuration block.
   + `LOGSTASH_OUTPUT_CONFIG` will be included as-is in Logstash's `output { }` configuration block.
 
+
+#### Using on Aptible
+
 To use on Aptible as a log drain, you **must** set the `DISABLE_WEAK_CIPHER_SUITES` configuration option:
 
     aptible config:set DISABLE_WEAK_CIPHER_SUITES=true
+
+We also strongly encourage you to deploy Logstash in a separate environment that it won't be draining, to
+avoid sending Logstash its own logs (which would be catastrophic if you inadvertently configure Logstash
+to output log messages to stdout!).
 
 ## Available Tags
 
