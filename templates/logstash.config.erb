@@ -11,7 +11,7 @@ filter {
     drop { }
   }
 
-  <%= ENV['LOGSTASH_FILTERS'] || "" %>
+  <%= ENV['LOGSTASH_FILTER_CONFIG'] || "" %>
 }
 
 output {

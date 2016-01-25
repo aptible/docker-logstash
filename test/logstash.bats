@@ -46,8 +46,8 @@ wait_for_logstash () {
   [ "$status" -eq "0" ]
 }
 
-@test "It should be configurable through LOGSTASH_FILTERS" {
-  LOGSTASH_OUTPUT_CONFIG="stdout { codec => rubydebug }" LOGSTASH_FILTERS="if [message] == 'APTIBLE KO' { drop {} }" wait_for_logstash
+@test "It should be configurable through LOGSTASH_FILTER_CONFIG" {
+  LOGSTASH_OUTPUT_CONFIG="stdout { codec => rubydebug }" LOGSTASH_FILTER_CONFIG="if [message] == 'APTIBLE KO' { drop {} }" wait_for_logstash
   run curl -XPOST http://localhost --data 'APTIBLE OK'
   run curl -XPOST http://localhost --data 'APTIBLE KO'
 

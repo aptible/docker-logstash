@@ -17,7 +17,7 @@ before building.
 
 Use the following environment variables to configure logstash:
 
-  + `LOGSTASH_FILTERS` will be included as-in Logstash's `filter { }` configuration block.
+  + `LOGSTASH_FILTER_CONFIG` will be included as-in Logstash's `filter { }` configuration block.
   + `LOGSTASH_OUTPUT_CONFIG` will be included as-is in Logstash's `output { }` configuration block.
 
 
