@@ -10,8 +10,8 @@ Logstash on Docker, configured with an HTTP listener.
 
 ### Plugins
 
-By default, no plugins are loaded. To plugins, edit `./logstash-plugins` and commit your changes
-before building.
+By default, this image includes a selection of common Logstash codec, filter, and output plugins.
+If you need additional plugins, edit `./Gemfile`.
 
 ### Configuration
 

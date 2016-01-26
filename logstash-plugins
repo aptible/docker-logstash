@@ -1,2 +1,0 @@
-# Add a plugin on each line. Lines starting with '#' are comments.
-logstash-input-http
