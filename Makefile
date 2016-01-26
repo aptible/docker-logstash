@@ -18,4 +18,6 @@ release: build
 	$(DOCKER) push $(REPO)
 
 build:
-	$(DOCKER) build -t $(REPO):$(TAG) .
+	sed "s|#__RUN_TESTS__#|RUN bats /tmp/test|g" < Dockerfile > Dockerfile.test
+	$(DOCKER) build -f Dockerfile.test -t $(REPO):$(TAG) .
+	rm Dockerfile.test

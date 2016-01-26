@@ -24,9 +24,9 @@ RUN "/logstash-${LOGSTASH_VERSION}/bin/plugin" install --no-verify
 ADD templates/logstash.config.erb /logstash.config.erb
 ADD bin/run-logstash.sh /run-logstash.sh
 
-## Run tests
+# Run tests
 ADD test /tmp/test
-RUN bats /tmp/test
+#__RUN_TESTS__#
 
 EXPOSE 80
 CMD ["/run-logstash.sh"]
