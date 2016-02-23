@@ -1,4 +1,5 @@
 # ![](https://raw.github.com/aptible/straptible/master/lib/straptible/rails/templates/public.api/icon-60px.png) Logstash
+[![Build Status](https://travis-ci.org/aptible/docker-logstash.svg?branch=master)](https://travis-ci.org/aptible/docker-logstash)
 
 
 Logstash on Docker, configured with an HTTP listener.
