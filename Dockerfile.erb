@@ -14,7 +14,8 @@ ENV LOGSTASH_SHA1 <%= ENV.fetch 'LOGSTASH_SHA1' %>
 
 RUN curl -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz && \
     echo "${LOGSTASH_SHA1}  logstash-${LOGSTASH_VERSION}.tar.gz" | sha1sum -c - && \
-    tar zxf "/logstash-${LOGSTASH_VERSION}.tar.gz"
+    tar zxf "/logstash-${LOGSTASH_VERSION}.tar.gz" && \
+    rm "/logstash-${LOGSTASH_VERSION}.tar.gz"
 
 # Install logstash plugins. We need --no-verify to install Aptible Gems.
 ADD Gemfile "/logstash-${LOGSTASH_VERSION}/Gemfile"
