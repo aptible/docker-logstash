@@ -28,6 +28,7 @@ gem "flores", "~> 0.0.6", :group => :development
 
 gem "logstash-input-http"
 gem 'logstash-output-syslog', :git => 'https://github.com/aaw/logstash-output-syslog', :branch => 'aptible'
+gem 'logstash-output-elasticsearch', :git => 'https://github.com/krallin/logstash-output-elasticsearch', :ref => 'e6e3aa9'
 
 
 ######################################################################
@@ -80,7 +81,6 @@ gem "logstash-output-zeromq"
 gem "logstash-output-xmpp"
 gem "logstash-output-cloudwatch"
 gem "logstash-output-csv"
-gem "logstash-output-elasticsearch"
 gem "logstash-output-email"
 gem "logstash-output-exec"
 gem "logstash-output-file"
