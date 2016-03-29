@@ -1,4 +1,4 @@
-FROM quay.io/aptible/alpine
+FROM quay.io/aptible/alpine:3.3
 
 RUN apk update && apk-install curl openjdk7-jre-base ruby ca-certificates java-cacerts git
 
