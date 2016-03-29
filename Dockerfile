@@ -1,6 +1,6 @@
 FROM quay.io/aptible/alpine:3.3
 
-RUN apk update && apk-install curl openjdk7-jre-base ruby ca-certificates java-cacerts git
+RUN apk-install curl openjdk7-jre-base ruby ca-certificates java-cacerts git
 
 # Actually ensure Java uses the trustore java-cacerts creates
 RUN JAVA_TRUSTSTORE=/usr/lib/jvm/java-1.7-openjdk/jre/lib/security/cacerts \
