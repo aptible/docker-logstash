@@ -21,7 +21,7 @@ RUN curl -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VE
 RUN rm -rf /logstash-2.1.3/vendor/bundle/jruby/1.9/gems/logstash-output-elasticsearch-2.4.1-java
 
 # Install logstash plugins. We need --no-verify to install Aptible Gems.
-ADD Gemfile "/logstash-${LOGSTASH_VERSION}/Gemfile"
+ADD Gemfile /logstash-${LOGSTASH_VERSION}/Gemfile
 RUN "/logstash-${LOGSTASH_VERSION}/bin/plugin" install --no-verify
 
 # Add logstash run scripts and configuration
