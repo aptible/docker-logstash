@@ -28,6 +28,7 @@ To run as an app on Aptible:
   aptible config:set --app YOUR_LOGSTASH_HANDLE \
     LOGSTASH_FILTER_CONFIG='' \
     LOGSTASH_OUTPUT_CONFIG='' \
+    FORCE_SSL=true \
     DISABLE_WEAK_CIPHER_SUITES=true
   ```
 
