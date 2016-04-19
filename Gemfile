@@ -43,6 +43,7 @@ gem "logstash-codec-line"
 gem "logstash-codec-multiline"
 gem "logstash-codec-plain"
 
+# DO NOT REMOVE THIS--the default Logstash config depends on it
 gem "logstash-filter-drop"
 
 gem "logstash-output-http"
