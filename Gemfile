@@ -43,6 +43,8 @@ gem "logstash-codec-line"
 gem "logstash-codec-multiline"
 gem "logstash-codec-plain"
 
+gem "logstash-filter-drop"
+
 #gem "logstash-filter-anonymize"
 #gem "logstash-filter-csv"
 #gem "logstash-filter-date"
