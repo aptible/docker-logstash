@@ -1,0 +1,12 @@
+METHOD method=%{WORD:method}
+PATH path=%{URIPATH:path}
+FORMAT format=%{NOTSPACE:format}
+CONTROLLER controller=%{WORD:controller}
+ACTION action=%{WORD:action}
+STATUS status=%{INT:status}
+DURATION duration=%{NUMBER:duration}
+VIEW view=%{NUMBER:view}
+DB db=%{NUMBER:db}
+PARAMS params=%{GREEDYDATA:params}
+
+LOGRAGE \[%{UUID:uuid}\](%{SPACE}(%{METHOD}|%{PATH}|%{FORMAT}|%{CONTROLLER}|%{ACTION}|%{STATUS}|%{DURATION}|%{VIEW}|%{DB}|%{PARAMS}|%{NOTSPACE}))*
