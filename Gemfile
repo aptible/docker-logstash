@@ -47,4 +47,4 @@ gem "logstash-codec-plain"
 gem "logstash-filter-drop"
 
 gem "logstash-output-http"
-gem "logstash-output-s3"
+gem "logstash-output-s3", :git => 'https://github.com/KetoThrive/logstash-output-s3', :branch => 'master'
