@@ -42,9 +42,5 @@ gem "logstash-codec-json_lines"
 gem "logstash-codec-line"
 gem "logstash-codec-multiline"
 gem "logstash-codec-plain"
-
-# DO NOT REMOVE THIS--the default Logstash config depends on it
-gem "logstash-filter-drop"
-
 gem "logstash-output-http"
 gem "logstash-output-s3", :git => 'https://github.com/KetoThrive/logstash-output-s3', :branch => 'master'
