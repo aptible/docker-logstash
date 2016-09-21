@@ -43,4 +43,4 @@ gem "logstash-codec-line"
 gem "logstash-codec-multiline"
 gem "logstash-codec-plain"
 gem "logstash-output-http"
-gem "logstash-output-s3", :git => 'https://github.com/KetoThrive/logstash-output-s3', :branch => 'master'
+gem "logstash-output-s3"
