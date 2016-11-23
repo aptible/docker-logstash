@@ -11,6 +11,13 @@ filter {
     drop { }
   }
 
+  grok {
+    patterns_dir => ["./patterns"]
+    match => {
+      "log" => "%{LOGRAGE}"
+    }
+  }
+
   <%= ENV['LOGSTASH_FILTER_CONFIG'] || "" %>
 }
 

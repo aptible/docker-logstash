@@ -26,6 +26,7 @@ RUN "/logstash-${LOGSTASH_VERSION}/bin/plugin" install --no-verify
 
 # Add logstash run scripts and configuration
 ADD templates/logstash.config.erb /logstash.config.erb
+ADD patterns /logstash-${LOGSTASH_VERSION}/patterns
 ADD bin/run-logstash.sh /run-logstash.sh
 ADD bin/checkconfig.sh /logstash-checkconfig.sh
 
