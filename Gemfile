@@ -29,7 +29,7 @@ gem "flores", "~> 0.0.6", :group => :development
 gem "logstash-filter-drop"
 gem "logstash-input-http"
 
-gem 'logstash-output-syslog', :git => 'https://github.com/KetoThrive/logstash-output-syslog', :branch => 'aptible-virta'
+gem 'logstash-output-syslog', :git => 'https://github.com/KetoThrive/logstash-output-syslog', :ref => 'a6d041e'
 gem 'logstash-output-elasticsearch', :git => 'https://github.com/krallin/logstash-output-elasticsearch', :ref => 'e6e3aa9'
 
 
