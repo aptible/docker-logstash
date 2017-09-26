@@ -12,12 +12,12 @@ RUN JAVA_TRUSTSTORE=/usr/lib/jvm/java-1.7-openjdk/jre/lib/security/cacerts \
 ENV LOGSTASH_VERSION 2.1.3
 ENV LOGSTASH_SHA1 283f6d8842df52c7d69f77b5c6d4755ee942b291
 
-RUN curl -O https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.tar.gz && \
+RUN curl -O https://installers.virtahealth.com/logstash-${LOGSTASH_VERSION}.tar.gz && \
     echo "${LOGSTASH_SHA1}  logstash-${LOGSTASH_VERSION}.tar.gz" | sha1sum -c - && \
     tar zxf "/logstash-${LOGSTASH_VERSION}.tar.gz" && \
     rm "/logstash-${LOGSTASH_VERSION}.tar.gz"
 
-# Blow away the existing elasticsearch plugin so we can instal our version instead.
+# Blow away the existing elasticsearch plugin so we can install our version instead.
 RUN rm -rf /logstash-2.1.3/vendor/bundle/jruby/1.9/gems/logstash-output-elasticsearch-2.4.1-java
 
 # Install logstash plugins. We need --no-verify to install Aptible Gems.
