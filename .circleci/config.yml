@@ -1,0 +1,46 @@
+defaults: &defaults
+  environment:
+    ECR_REPO: 325943998015.dkr.ecr.us-east-1.amazonaws.com/
+    IMAGE: logstash
+  docker:
+  - aws_auth:
+      aws_access_key_id: $AWS_PROD_ACCESS_KEY_ID
+      aws_secret_access_key: $AWS_PROD_SECRET_ACCESS_KEY
+
+version: 2
+
+jobs:
+  ci:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker:
+          reusable: true
+          version: 17.05.0-ce
+      - run:
+          name: Build image
+          command: ci build
+      - run:
+          name: Run tests
+          command: set -e ; if [ -f 'test.sh' ]; then ./test.sh; break; fi
+      - deploy:
+          name: Push to ECR
+          command: ci push_to_ecr
+  deploy_dev:
+    <<: *defaults
+    steps:
+      - deploy:
+          name: Deploy dev
+          command: ci deploy_aptible --env dev
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - ci
+    - deploy_dev:
+        filters:
+          branches:
+            only: master
+        requires:
+        - ci
