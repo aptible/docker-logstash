@@ -6,6 +6,7 @@ defaults: &defaults
   - aws_auth:
       aws_access_key_id: $AWS_PROD_ACCESS_KEY_ID
       aws_secret_access_key: $AWS_PROD_SECRET_ACCESS_KEY
+    image: 325943998015.dkr.ecr.us-east-1.amazonaws.com/olympus/ci:v0.18.7
 
 version: 2
 
