@@ -33,6 +33,18 @@ jobs:
       - deploy:
           name: Deploy dev
           command: ci deploy_aptible --env dev
+  deploy_staging:
+    <<: *defaults
+    steps:
+      - deploy:
+          name: Deploy staging
+          command: ci deploy_aptible --env staging
+  deploy_prod:
+    <<: *defaults
+    steps:
+      - deploy:
+          name: Deploy prod
+          command: ci deploy_aptible --env prod
 
 workflows:
   version: 2
@@ -42,6 +54,18 @@ workflows:
     - deploy_dev:
         filters:
           branches:
-            only: master
+            only: dev
+        requires:
+        - ci
+    - deploy_staging:
+        filters:
+          branches:
+            only: staging
+        requires:
+        - ci
+    - deploy_prod:
+        filters:
+          branches:
+            only: prod
         requires:
         - ci
