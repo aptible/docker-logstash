@@ -1,2 +1,3 @@
 .docker/config.json
 */Dockerfile
+.DS_Store
