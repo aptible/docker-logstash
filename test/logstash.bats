@@ -22,9 +22,9 @@ wait_for_logstash () {
   wait_for_message "startup completed" "$BATS_TEST_DIRNAME/logstash.log" 400
 }
 
-@test "It should install logstash 2.1.3" {
+@test "It should install logstash 6.7.0" {
   run /run-logstash.sh --version
-  [[ "$output" =~ "logstash 2.1.3"  ]]
+  [[ "$output" =~ "logstash 6.7.0"  ]]
 }
 
 @test "It should listen over HTTP on port 80 for POSTs" {
