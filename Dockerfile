@@ -11,8 +11,10 @@ RUN JAVA_TRUSTSTORE=/usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts \
 # Install logstash
 ENV LOGSTASH_VERSION 6.7.0
 ENV LOGSTASH_PLUGIN_VERSION 9.4.0
+ENV LOGSTASH_SHA1 e90ff327b738f7b98984632d65b812df1cd84a62
 
 RUN curl -O https:/artifacts.elastic.co/downloads/logstash/logstash-${LOGSTASH_VERSION}.tar.gz && \
+    echo "${LOGSTASH_SHA1}  logstash-${LOGSTASH_VERSION}.tar.gz" | sha1sum -c - && \
     tar zxf "/logstash-${LOGSTASH_VERSION}.tar.gz" && \
     rm "/logstash-${LOGSTASH_VERSION}.tar.gz"
 
