@@ -19,7 +19,7 @@ wait_for_message () {
 
 wait_for_logstash () {
   /run-logstash.sh --verbose > $BATS_TEST_DIRNAME/logstash.log &
-  wait_for_message "startup completed" "$BATS_TEST_DIRNAME/logstash.log" 400
+  wait_for_message "Successfully started Logstash" "$BATS_TEST_DIRNAME/logstash.log" 400
 }
 
 @test "It should install logstash 6.7.0" {
