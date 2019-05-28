@@ -45,6 +45,12 @@ jobs:
       - deploy:
           name: Deploy prod
           command: ci deploy_aptible --env prod
+  deploy_ecommprod:
+    <<: *defaults
+    steps:
+      - deploy:
+          name: Deploy ecomm-prod
+          command: ci deploy_aptible --env ecommprod
 
 workflows:
   version: 2
@@ -67,5 +73,11 @@ workflows:
         filters:
           branches:
             only: prod
+        requires:
+        - ci
+    - deploy_ecommprod:
+        filters:
+          branches:
+            only:  ecommprod
         requires:
         - ci
