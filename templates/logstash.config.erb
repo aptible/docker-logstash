@@ -10,6 +10,9 @@ filter {
     # and we don't want those getting into Logstash.
     drop { }
   }
+  grok {
+    match => { "message" => "\\\\\\\"olympus-region\\\\\\\":\\\\\\\"(?<regstr>..)\\\\\\\""}
+  }
 
   <%= ENV['LOGSTASH_FILTER_CONFIG'] || "" %>
 }
