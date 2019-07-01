@@ -13,7 +13,11 @@ filter {
   grok {
     match => { "message" => "\\\\\\\"olympus-region\\\\\\\":\\\\\\\"(?<region>..)\\\\\\\""}
   }
+  mutate { remove_field => ["headers"]}
 
+}
+
+output {
   if [region] == "EU" {
     s3 {
       access_key_id => "${AWS_ACCESS_KEY_ID}"
@@ -45,10 +49,4 @@ filter {
         }
       }
   }
-
-  <%= ENV['LOGSTASH_FILTER_CONFIG'] || "" %>
-}
-
-output {
-  <%= ENV['LOGSTASH_OUTPUT_CONFIG'] || "" %>
 }
