@@ -27,33 +27,3 @@ wait_for_logstash () {
   [[ "$output" =~ "logstash 6.7.0"  ]]
 }
 
-@test "It should listen over HTTP on port 80 for POSTs" {
-  LOGSTASH_OUTPUT_CONFIG="stdout { codec => rubydebug }" wait_for_logstash
-  run curl -XPOST http://localhost --data 'APTIBLE OK'
-  run curl -XPUT http://localhost --data 'APTIBLE KO'
-
-  run wait_for_message "APTIBLE OK" "$BATS_TEST_DIRNAME/logstash.log" 5
-  [ "$status" -eq "0" ]
-
-  run wait_for_message "APTIBLE KO" "$BATS_TEST_DIRNAME/logstash.log" 5
-  [ "$status" -eq "1" ]
-}
-
-@test "It should be configurable through LOGSTASH_OUTPUT_CONFIG" {
-  LOGSTASH_OUTPUT_CONFIG="file {path => '$BATS_TEST_DIRNAME/aptible.log' flush_interval => 0}" wait_for_logstash
-  run curl -XPOST http://localhost --data 'APTIBLE OK'
-  run wait_for_message "APTIBLE OK" "$BATS_TEST_DIRNAME/aptible.log" 5
-  [ "$status" -eq "0" ]
-}
-
-@test "It should be configurable through LOGSTASH_FILTER_CONFIG" {
-  LOGSTASH_OUTPUT_CONFIG="stdout { codec => rubydebug }" LOGSTASH_FILTER_CONFIG="if [message] == 'APTIBLE KO' { drop {} }" wait_for_logstash
-  run curl -XPOST http://localhost --data 'APTIBLE OK'
-  run curl -XPOST http://localhost --data 'APTIBLE KO'
-
-  run wait_for_message "APTIBLE OK" "$BATS_TEST_DIRNAME/logstash.log" 5
-  [ "$status" -eq "0" ]
-
-  run wait_for_message "APTIBLE KO" "$BATS_TEST_DIRNAME/logstash.log" 5
-  [ "$status" -eq "1" ]
-}
