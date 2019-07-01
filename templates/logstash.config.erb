@@ -10,15 +10,12 @@ filter {
     # and we don't want those getting into Logstash.
     drop { }
   }
-  grok {
-    match => { "message" => "\\\\\\\"olympus-region\\\\\\\":\\\\\\\"(?<region>..)\\\\\\\""}
-  }
-  mutate { remove_field => ["headers"]}
 
+  mutate { remove_field => ["headers"]}
 }
 
 output {
-  if [region] == "EU" {
+  if [olympus_req_headers] =~ "\"olympus-region\":\s*\"EU\"" {
     s3 {
       access_key_id => "${AWS_ACCESS_KEY_ID}"
       secret_access_key => "${AWS_SECRET_ACCESS_KEY}"
@@ -27,8 +24,19 @@ output {
       server_side_encryption => true
       codec => "json"
       encoding => "gzip"
-      }
-  } else {
+    }
+
+    http {
+      format => "json"
+      content_type => "application/json"
+      http_method => "post"
+      url => "${SPLUNK_HEC_ENDPOINT}"
+      headers => {"Authorization" => "Splunk ${SPLUNK_HEC_TOKEN}"}
+    }
+  } else if (
+      [olympus_req_headers] =~ "\"olympus-region\":\s*\"US\""
+      or !([olympus_req_headers] =~ "\"olympus-region\":")
+  ) {
     s3 {
       access_key_id => "${AWS_ACCESS_KEY_ID}"
       secret_access_key => "${AWS_SECRET_ACCESS_KEY}"
@@ -37,16 +45,14 @@ output {
       server_side_encryption => true
       codec => "json"
       encoding => "gzip"
-      }
+    }
+
     http {
       format => "json"
       content_type => "application/json"
       http_method => "post"
       url => "${SPLUNK_HEC_ENDPOINT}"
-      headers => {
-        "Authorization" => "Splunk ${SPLUNK_HEC_TOKEN}"
-        "X-Splunk-Request-Channel" => "${SPLUNK_REQUEST_CHANNEL}"
-        }
-      }
+      headers => {"Authorization" => "Splunk ${SPLUNK_HEC_TOKEN}"}
+    }
   }
 }
