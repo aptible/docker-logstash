@@ -11,7 +11,39 @@ filter {
     drop { }
   }
   grok {
-    match => { "message" => "\\\\\\\"olympus-region\\\\\\\":\\\\\\\"(?<regstr>..)\\\\\\\""}
+    match => { "message" => "\\\\\\\"olympus-region\\\\\\\":\\\\\\\"(?<region>..)\\\\\\\""}
+  }
+
+  if [region] == "EU" {
+    s3 {
+      access_key_id => "${AWS_ACCESS_KEY_ID}"
+      secret_access_key => "${AWS_SECRET_ACCESS_KEY}"
+      region => "eu-central-1"
+      bucket => "{AWS_LOG_BUCKET_EU}"
+      server_side_encryption => true
+      codec => "json"
+      encoding => "gzip"
+      }
+  } else {
+    s3 {
+      access_key_id => "${AWS_ACCESS_KEY_ID}"
+      secret_access_key => "${AWS_SECRET_ACCESS_KEY}"
+      region => "us-east-1"
+      bucket => "{AWS_LOG_BUCKET}"
+      server_side_encryption => true
+      codec => "json"
+      encoding => "gzip"
+      }
+    http {
+      format => "json"
+      content_type => "application/json"
+      http_method => "post"
+      url => "${SPLUNK_HEC_ENDPOINT}"
+      headers => {
+        "Authorization" => "Splunk ${SPLUNK_HEC_TOKEN}"
+        "X-Splunk-Request-Channel" => "${SPLUNK_REQUEST_CHANNEL}"
+        }
+      }
   }
 
   <%= ENV['LOGSTASH_FILTER_CONFIG'] || "" %>
