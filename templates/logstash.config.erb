@@ -10,10 +10,14 @@ filter {
     # and we don't want those getting into Logstash.
     drop { }
   }
-
-  <%= ENV['LOGSTASH_FILTER_CONFIG'] || "" %>
 }
 
 output {
-  <%= ENV['LOGSTASH_OUTPUT_CONFIG'] || "" %>
+    http {
+        format => "json"
+        content_type => "application/json"
+        http_method => "post"
+        url => "${SPLUNK_HEC_ENDPOINT_US}"
+        headers => {"Authorization" => "Splunk ${SPLUNK_HEC_TOKEN_US}"}
+    }
 }
